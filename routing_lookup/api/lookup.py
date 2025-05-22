@@ -23,14 +23,16 @@ def lookup_routing(routing_number: str) -> dict:
     def safe_str(val):
         return str(val) if val is not None else ""
 
-    return RoutingLookupResponse(
+    response_kwargs = dict(
         routing_number=safe_str(routing_number),
         bank_name=safe_str(result.get("bank_name")),
-        source=safe_str(result.get("source")),
         timestamp=datetime.utcnow().isoformat(),
         city=result.get("city"),
         state=result.get("state"),
         address=result.get("address"),
         postal_code=result.get("postal_code"),
         phone=result.get("phone")
-    ).dict()
+    )
+    if result.get("source"):
+        response_kwargs["source"] = safe_str(result.get("source"))
+    return RoutingLookupResponse(**response_kwargs).dict()

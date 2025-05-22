@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  font-family: 'Work Sans', 'DM Sans', Arial, sans-serif;
+  background: #f9f9f9;
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #fff;
+  border-bottom: 2px solid #ea1d25;
+  padding: 1.5rem 0 1rem 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.logo {
+  height: 48px;
+  margin-bottom: 0.5rem;
+}
+.title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #ea1d25;
+  margin: 0.6rem 0 0.2rem 0;
+  letter-spacing: -1px;
+}
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #444;
+  margin-bottom: 2rem;
+}
+.container {
+  max-width: 420px;
+  margin: 2.5rem auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(234,29,37,0.08);
+  padding: 2.5rem 2rem 1.5rem 2rem;
+}
+.routing-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+.routing-form input[type="text"] {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #ea1d25;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.routing-form input[type="text"]:focus {
+  border: 2px solid #ea1d25;
+}
+.routing-form button {
+  background: #ea1d25;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.routing-form button:disabled {
+  background: #b3b3b3;
+  cursor: not-allowed;
+}
+.error {
+  background: #ffeaea;
+  color: #ea1d25;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.result-card {
+  background: #f7f7f7;
+  border-left: 4px solid #ea1d25;
+  border-radius: 8px;
+  padding: 1.2rem 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 6px 0 rgba(234,29,37,0.03);
+}
+.result-card h2 {
+  color: #ea1d25;
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-size: 1.35rem;
+}
+.result-card p {
+  margin: 0.15rem 0;
+  font-size: 1rem;
+}
+.footer {
+  background: #fff0f1;
+  color: #b3b3b3;
+  text-align: center;
+  padding: 0.8rem 2rem 0.8rem 2rem;
+  font-size: 0.90rem;
+  margin-top: auto;
+  border-top: 1px solid #ea1d25;
+  font-family: 'Work Sans', 'DM Sans', Arial, sans-serif;
+  position: relative;
+}
+.footer-disclaimer {
+  color: #b3b3b3;
+  font-weight: 400;
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 1.2rem 0.5rem;
+  }
+  .footer {
+    font-size: 0.87rem;
+    padding: 0.7rem 0.5rem;
+  }
+}

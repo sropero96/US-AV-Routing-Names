@@ -46,14 +46,14 @@ class RoutingLookupService:
                     })
                 except Exception:
                     pass  # Si Elastic está caído, ignorar
+                # No incluir 'source' si es 'primary'
                 return {
                     "bank_name": primary['bank_name'],
                     "city": primary.get('city'),
                     "state": primary.get('state'),
                     "address": primary.get('address'),
                     "postal_code": primary.get('postal_code'),
-                    "phone": primary.get('phone'),
-                    "source": "primary"
+                    "phone": primary.get('phone')
                 }
         # 3. Fuente de respaldo
         backup = fetch_from_backup(routing_number)
