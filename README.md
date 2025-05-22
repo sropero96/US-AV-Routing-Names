@@ -22,8 +22,32 @@ frontend/
 ## Setup local
 
 1. Clona el repo y copia `.env.example` a `.env`.
-2. Levanta los servicios con `docker-compose up --build`.
+2. Levanta los servicios backend con `docker-compose up --build`.
 3. Ejecuta los tests con `pytest`.
+
+---
+
+## Levantar el frontend localmente
+
+El proyecto incluye un frontend en React para consultar routing numbers con una interfaz amigable.
+
+### Pasos:
+
+1. Ve a la carpeta `frontend`:
+   ```sh
+   cd frontend
+   ```
+2. Instala las dependencias:
+   ```sh
+   npm install
+   ```
+3. Levanta el servidor de desarrollo:
+   ```sh
+   npm run dev
+   ```
+4. Accede desde tu navegador a: [http://localhost:5173](http://localhost:5173)
+
+> El frontend se conecta por defecto al backend en `http://localhost:8000`. Asegúrate de tener el backend corriendo en ese puerto.
 
 ## Variables de entorno
 
