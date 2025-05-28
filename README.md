@@ -1,57 +1,67 @@
 # AV-US-ROUTING-Lookup
 
-App para consultar el nombre de la entidad financiera de EE.UU. por routing number (ABA), con FastAPI, ElasticSearch, Postgres y frontend minimalista.
+App para consultar el nombre de la entidad financiera de EE.UU. por routing number (ABA), con FastAPI y frontend minimalista. Opcionalmente puede usar ElasticSearch para cachear resultados, pero no es obligatorio.
 
-## Estructura del proyecto
+> **IMPORTANTE:** Para evitar errores de importación, siempre ejecuta el backend desde la carpeta `AV-US-ROUTING-Lookup`:
+> ```sh
+> cd AV-US-ROUTING-Lookup
+> uvicorn routing_lookup.api.main:app --reload
+> ```
 
-```
-routing_lookup/
-  ├── api/
-  ├── services/
-  ├── models/
-  ├── tests/
-  ├── __init__.py
-Dockerfile
-docker-compose.yml
-README.md
-.env.example
-sync_routing_numbers.py
-frontend/
-```
+## Instalación y ejecución local (sin Docker)
 
-## Setup local
+### 1. Requisitos previos
+- Python 3.12+
+- Node.js 18+ y npm (para el frontend)
 
-1. Clona el repo y copia `.env.example` a `.env`.
-2. Levanta los servicios backend con `docker-compose up --build`.
-3. Ejecuta los tests con `pytest`.
+### 2. Backend (FastAPI)
 
----
+1. Instala las dependencias de Python:
+   ```sh
+   pip install -r requirements.txt
+   ```
+2. (Opcional) Si quieres usar ElasticSearch para cachear resultados, instala y ejecuta ElasticSearch localmente (v8.13.0) y configura las variables de entorno:
+   - `ELASTIC_HOST` (por defecto: localhost)
+   - `ELASTIC_PORT` (por defecto: 9200)
+   - `ELASTIC_INDEX` (por defecto: routing-lookup-dev)
+   Si no tienes ElasticSearch, el sistema funcionará igual pero sin cache.
+3. (Opcional) Descarga el archivo de respaldo de la Reserva Federal y colócalo en `data/epayments_dir.txt` para búsquedas offline.
+4. Ejecuta el backend:
+   ```sh
+   uvicorn routing_lookup.api.main:app --reload
+   ```
 
-## Levantar el frontend localmente
-
-El proyecto incluye un frontend en React para consultar routing numbers con una interfaz amigable.
-
-### Pasos:
+### 3. Frontend (React)
 
 1. Ve a la carpeta `frontend`:
    ```sh
    cd frontend
-   ```
-2. Instala las dependencias:
-   ```sh
    npm install
-   ```
-3. Levanta el servidor de desarrollo:
-   ```sh
    npm run dev
    ```
-4. Accede desde tu navegador a: [http://localhost:5173](http://localhost:5173)
+2. Accede desde tu navegador a: [http://localhost:5173](http://localhost:5173)
 
 > El frontend se conecta por defecto al backend en `http://localhost:8000`. Asegúrate de tener el backend corriendo en ese puerto.
 
-## Variables de entorno
+### 4. Variables de entorno
 
-Ver `.env.example` para detalles de configuración de Elastic, Postgres y entorno.
+Crea un archivo `.env` en la raíz del proyecto si necesitas personalizar la conexión a ElasticSearch:
+```
+ELASTIC_HOST=localhost
+ELASTIC_PORT=9200
+ELASTIC_INDEX=routing-lookup-dev
+```
+
+Si no usas ElasticSearch, puedes omitir este paso.
+
+### 5. Tests
+
+Ejecuta los tests con:
+```sh
+pytest
+```
+
+---
 
 ## Endpoints principales
 
@@ -78,17 +88,7 @@ curl -s 'http://localhost:8000/lookup?routing_number=021000089'
 }
 ```
 
-### Campos de respuesta
-- `routing_number`: Routing consultado
-- `bank_name`: Nombre de la entidad financiera
-- `source`: Fuente del dato (`primary` si proviene de la API pública)
-- `timestamp`: Fecha y hora de la consulta
-- `city`, `state`, `address`, `postal_code`, `phone`: Datos adicionales si están disponibles
-
-## Robustez y dependencias
-- El servicio funciona incluso si ElasticSearch no está disponible, consultando siempre la fuente primaria (API pública).
-- Si Elastic está disponible, cachea resultados para acelerar futuras consultas.
-- No requiere base de datos local ni archivos CSV.
+---
 
 ## Disclaimer sobre la fuente principal
 
